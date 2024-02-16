@@ -37,7 +37,7 @@ class Name(Field):
 
 
 class Phone(Field):
-   def __init__(self, value):
+    def __init__(self, value):
         if int(value) and len(value)==10:
             self.value = value
         else:
@@ -46,12 +46,12 @@ class Phone(Field):
 
 class Birthday(Field):
     def __init__(self, value):
-      try:
-           self.value = value
-           d = value.split("-")
-           self.date=datetime(int(d[2]),int(d[1]),int(d[0]))
-      except Exception as e: 
-          raise ValueError
+        try:
+            self.value = value
+            d = value.split("-")
+            self.date=datetime(int(d[2]),int(d[1]),int(d[0]))
+        except Exception as e: 
+            raise ValueError
 
 
 class Name(Field):
@@ -90,13 +90,13 @@ class Record:
             print(f"birthday of {self.name} is unknown")
 
     def add_phone(self, phone_s):
-      try:
-          self.phones.append(Phone(phone_s))
-      except ValueError as e:
-          if len(str(e))>0:
-             print(f'{RED}{e}{YELLOW} - Phone number must consist of numbers only{RESET}')
-          else:
-             print(f'{RED}{phone_s}{YELLOW} - Phone number must consist of 10 numbers{RESET}')
+        try:
+            self.phones.append(Phone(phone_s))
+        except ValueError as e:
+            if len(str(e))>0:
+                print(f'{RED}{e}{YELLOW} - Phone number must consist of numbers only{RESET}')
+            else:
+                print(f'{RED}{phone_s}{YELLOW} - Phone number must consist of 10 numbers{RESET}')
 
     def edit_phone(self, old_phone, new_phone):
         n=0
@@ -138,7 +138,7 @@ class Record:
 class AddressBook(UserDict):
 
     def add_record(self, record):
-       self[record.name.value]=record
+        self[record.name.value]=record
 
     def get_all_in_page(self, n=0):
 
@@ -146,7 +146,7 @@ class AddressBook(UserDict):
         for name, record in self.data.items():
             list_rec.append(record)
         if n<=0:
-           n=len(list_rec)
+            n=len(list_rec)
 
         def list_generator(n, x=0):
             y = n + x
@@ -164,20 +164,20 @@ class AddressBook(UserDict):
 
     def get_find(self, found=""):
         for name, record in self.data.items():
-           find_tel = 0
-           for num in record.phones:
-              if str(num).find(found)>=0:
-                  find_tel = 1
-           if (name.find(found) >= 0 or find_tel == 1):
-               print(record)
+            find_tel = 0
+            for num in record.phones:
+                if str(num).find(found)>=0:
+                    find_tel = 1
+            if (name.find(found) >= 0 or find_tel == 1):
+                print(record)
 
 
     def get_some(self, x, y):
         i=0
         for name, record in self.data.items():
-           if (x <= i and i <= y):
-               print(record)
-           i += 1
+            if (x <= i and i <= y):
+                print(record)
+            i += 1
 
     def get_all(self, count = -1):
         if count == -1 or count > len(self.data.items()):
@@ -197,14 +197,14 @@ class AddressBook(UserDict):
     def find(self, name):
         for nam, rec in self.data.items():
             if rec.name.value == name:
-               return rec
+                return rec
 
     def delete(self, name):
-       for nam, rec in self.data.items():
+        for nam, rec in self.data.items():
             if nam == name:
                 del self[nam]
                 return nam
-       return None
+        return None
 
     def save_to_file(self, filename):
         with open(filename, 'wb') as fh:

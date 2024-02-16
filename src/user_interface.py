@@ -41,35 +41,35 @@ def start_bot():
         elif data == "add":
             name = input("Enter name :")
             if (name):
-              record = address_book.Record(name)
-              phone = input('Enter phone number (or press "Enter" to continue):')
-              if phone:
-                  record.add_phone(phone)
-              birthday = input('Enter date of birth [DD-MM-YYYY](or press "Enter" to continue):')
-              if birthday:
-                  record.add_birthday(birthday)
-              book.add_record(record)
+                record = address_book.Record(name)
+                phone = input('Enter phone number (or press "Enter" to continue):')
+                if phone:
+                    record.add_phone(phone)
+                birthday = input('Enter date of birth [DD-MM-YYYY](or press "Enter" to continue):')
+                if birthday:
+                    record.add_birthday(birthday)
+                book.add_record(record)
         elif data == "add tel":
             name = input("Enter name :")
             if (name):
                 rec = book.find(name)
                 if rec:
-                   phone = input("Enter phone number:")
-                   rec.add_phone(phone)
+                    phone = input("Enter phone number:")
+                    rec.add_phone(phone)
                 else:
-                  print(f"The name {name} was not found in the address book")
+                    print(f"The name {name} was not found in the address book")
 
         elif data=="delete":
             name = input("Enter name :")
             if (name ):
-              nam=book.delete(name)
-              if nam:
-                 print(f"{nam} deleted from address book")
-              else:
-                 print(f"The name {name} was not found in the address book")
+                nam=book.delete(name)
+                if nam:
+                    print(f"{nam} deleted from address book")
+                else:
+                    print(f"The name {name} was not found in the address book")
         elif data == "find":
-             f=input("Enter text for searching (part of name or phone number):")
-             book.get_find(f)
+            f=input("Enter text for searching (part of name or phone number):")
+            book.get_find(f)
 
         elif data == "all":
             n=-1
