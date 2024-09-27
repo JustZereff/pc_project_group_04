@@ -38,3 +38,28 @@
 
 9. Обгорнути все в Python-пакет.
 	
+
+10. 
+Alex	0735555555	15-03-1995	Lviv	alx@gmail.com
+Ben		0736666666	13-08-1992	Odesa	ben@gmail.com
+Casy	0737777777	02-02-1990	Kyiv	cs@gmail.com
+Donald 	0738888888	13-12-2000	Warsow	don@gmail.com
+Evan 	0739999999	01-01-2001	London	evan@gmail.com
+artem 	0734888988	24-12-1998	NY		art@gmail.com
+Fred	0731111111	15-01-1991	Kharkiv	fred@gmail.com
+Georg	0732222222	20-02-1991	Donetsk	gg@gmail.com
+Hanna	0733333333	21-03-1992	Dnipro	hanna@gmail.com
+Iris	0734444444	22-02-1992	Rivne	iris@gmail.com
+Jhon	0671111111	23-04-1993	Lviv	jn@gmail.com
+Kate	0672222222	24-05-1993	Odesa	kate@gmail.com
+Loe		0673333333	25-06-1994	Kyiv	leo@gmail.com
+Margo	0674444444	26-07-1994	Warsow	margo@gmail.com
+Nick	0675555555	27-08-1995	London	nick@gmail.com
+Olivia	0676666666	28-09-1995	NY		olv@gmail.com
+Patrick	0677777777	29-10-1996	Kharkiv	pat@gmail.com
+Ron		0678888888	30-11-1996	Donetsk	ron@gmail.com
+Steve	0679999999	31-12-1991	Dnipro	stv@gmail.com
+Tom		0631111111	01-01-1990	Rivne	tom@gmail.com
+Viktor	0672222222	02-02-1989	Lviv	vik@gmail.com
+Wanda	0673333333	03-03-1989	Odesa	wanda@gmail.com
+Zak		0675555555	04-04-1998	Kyiv	zak@gmail.com

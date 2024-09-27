@@ -1,5 +1,5 @@
-import user_interface
+import src.user_interface
 
 
 if __name__ == '__main__':
-    user_interface.start_bot()
+    src.user_interface.start_bot()

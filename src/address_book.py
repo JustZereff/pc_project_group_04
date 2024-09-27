@@ -4,12 +4,25 @@
 from collections import UserDict
 from datetime import datetime
 import pickle
+import re
 
-RED = "\033[91m"
-GREEN = "\033[92m"
-YELLOW="\033[93m"
-RESET = "\033[0m"
-BLUE = "\033[94m"
+# Color text ON
+# RED = "\033[91m"
+# GREEN = "\033[92m"
+# YELLOW = "\033[93m"
+# RESET = "\033[0m"
+# BLUE = "\033[94m"
+# FLY_BLUE = "\033[38;5;117m"
+# PURPURE = "\033[35m"
+
+# Color text OFF
+RED = ""
+GREEN = ""
+YELLOW = ""
+RESET = ""
+BLUE = ""
+FLY_BLUE = ""
+PURPURE = ""
 
 def read_from_file(file):
     with open(file, 'rb') as fh:
@@ -29,6 +42,7 @@ class Field:
 
     def __str__(self):
         return str(self.value)
+
 
 class Name(Field):
     def __init__(self, value):
@@ -59,10 +73,29 @@ class Name(Field):
         self.value = value
 
 
+class Address(Field):
+    def __init__(self, value):
+        self.value = value
+
+
+class Email(Field):
+    def __init__(self, value): 
+        result = list() 
+        result = re.findall(r"[a-zA-Z][a-zA-Z0-9._]+@[a-z]{2,}\.[a-z]{2,}", value)
+        try:
+            if result[0] == value:
+                self.value = value
+        except:
+            self.value = ''    
+            raise ValueError
+
+
 class Record:
     def __init__(self, name, birthday=None):
         self.name = Name(name)
         self.phones = []
+        self.address = None
+        self.email = None
         self.birthday = birthday
         if birthday:
             try:
@@ -86,8 +119,6 @@ class Record:
 
             days = dbirt - current_datetime
             print(f"{days.days} days before birthday of {self.name}")
-        else:
-            print(f"birthday of {self.name} is unknown")
 
     def add_phone(self, phone_s):
         try:
@@ -128,11 +159,22 @@ class Record:
         for phone in self.phones:
             if phone.value == num_phone:
                 return phone
+            
+    def add_address(self, address_s):
+        self.address = Address(address_s)
+
+    def add_email(self, email_s):
+        try:
+            self.email = Email(email_s)
+        except  ValueError:
+            print(f'{RED}{email_s}{YELLOW} -  Wrong email address{RESET}')
 
     def __str__(self):
         sp = f"{BLUE} phones:{YELLOW} {'; '.join(p.value for p in self.phones)}" if self.phones else ""
         sb = f",{BLUE} birthday: {YELLOW} {self.birthday}{RESET}" if self.birthday else ""
-        return (f"{BLUE}Contact name:{YELLOW} {self.name.value} {sp} {sb}")
+        sa = f",{BLUE} address: {YELLOW} {self.address}{RESET}" if self.address else ""
+        se = f",{BLUE} email: {YELLOW} {self.email}{RESET}" if self.email else ""
+        return (f"{BLUE}Contact name:{YELLOW} {self.name.value} {sp} {sb} {sa} {se}")  
 
 
 class AddressBook(UserDict):
@@ -196,7 +238,7 @@ class AddressBook(UserDict):
 
     def find(self, name):
         for nam, rec in self.data.items():
-            if rec.name.value == name:
+            if rec.name.value.lower() == name.lower():
                 return rec
 
     def delete(self, name):
@@ -205,6 +247,21 @@ class AddressBook(UserDict):
                 del self[nam]
                 return nam
         return None
+    
+    def find_birthday_people(self):
+        birthday_people_list = list()
+        for name, record in self.data.items():            
+            current_datetime = datetime.now().date()
+            dbirt = datetime(current_datetime.year, record.birthday.date.month, record.birthday.date.day).date()
+            if current_datetime == dbirt:
+                sp = f"  {GREEN}{'; '.join(p.value for p in record.phones)}" if record.phones else ""
+                sb = f"  {GREEN}{record.birthday}{RESET}" if record.birthday else ""
+                se = f"  {GREEN}{record.email}{RESET}" if record.email else ""    
+                birthday_people_list.append(f"{GREEN} {record.name.value:<8} {sb:<12} {sp:<12} {se:<20}")   
+
+        if (birthday_people_list):
+            print(f"{GREEN}Today is the birthday of some of your friends, congratulate them:")
+            print(f"{GREEN}{'\n'.join(person for person in birthday_people_list)}")
 
     def save_to_file(self, filename):
         with open(filename, 'wb') as fh:
